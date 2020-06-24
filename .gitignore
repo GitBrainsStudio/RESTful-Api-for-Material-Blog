@@ -1,0 +1,11 @@
+
+# compiled output
+/bin
+/tmp
+/obj
+/DB
+/.vs
+/wwwroot
+
+
+
