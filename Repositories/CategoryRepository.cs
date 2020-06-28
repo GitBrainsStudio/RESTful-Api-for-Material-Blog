@@ -39,5 +39,10 @@ namespace GitBrainsBlogApi.Repositories
         {
             return Execute("delete from categories where id = :id", new { id = _id });
         }
+
+        public int Update(CategoryEntityCreate _e)
+        {
+            return Execute("update categories set seo_name = :seo_name, display_name = :display_name, logo_64 = :logo_64 where id = :id", _e);
+        }
     }
 }

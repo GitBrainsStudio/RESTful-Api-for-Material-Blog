@@ -126,27 +126,27 @@ namespace GitBrainsBlogApi.Controllers
             string authorGuid = _account.Claims().FirstOrDefault(x => x.Type == "g").Value;
             string _post_guid = _data["id"].ToObject<string>();
 
-            List<TagDTO> tags = _data["tags"].ToObject<List<TagDTO>>();
-            if (tags.Count == 0) throw new HumanException("Необходимо указать как минимум один тэг для статьи.");
+            //List<TagDTO> tags = _data["tags"].ToObject<List<TagDTO>>();
+            //if (tags.Count == 0) throw new HumanException("Необходимо указать как минимум один тэг для статьи.");
 
-            if (_post_tag_repo.DeleteTagsByPost(_post_guid) == 0)
-                throw new HumanException("К сожалению, тэги не были удалены.");
+            //if (_post_tag_repo.DeleteTagsByPost(_post_guid) == 0)
+            //    throw new HumanException("К сожалению, тэги не были удалены.");
 
             if (_post_repo.Update(new PostEntityCreate(_post_guid, _title, _preview, _content, authorGuid)) == 0)
                 throw new HumanException("К сожалению, пост не был отредактирован.");
 
 
-            tags.ForEach(v =>
-            {
-                if (String.IsNullOrEmpty(v.id)) {
+            //tags.ForEach(v =>
+            //{
+            //    if (String.IsNullOrEmpty(v.id)) {
 
-                    string _tag_guid = Guid.NewGuid().ToString();
-                    _tag_repo.Create(new TagEntityCreate(_tag_guid, v.title, ""));
-                    v.id = _tag_guid;
-                }
-                string _post_tag_guid = Guid.NewGuid().ToString();
-                _post_tag_repo.Create(new PostTagEntityCreate(_post_tag_guid, _post_guid, v.id));
-            });
+            //        string _tag_guid = Guid.NewGuid().ToString();
+            //        _tag_repo.Create(new TagEntityCreate(_tag_guid, v.title, ""));
+            //        v.id = _tag_guid;
+            //    }
+            //    string _post_tag_guid = Guid.NewGuid().ToString();
+            //    _post_tag_repo.Create(new PostTagEntityCreate(_post_tag_guid, _post_guid, v.id));
+            //});
 
             return Ok(new { message = "Пост успешно отредактирован." });
 
